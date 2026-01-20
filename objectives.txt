@@ -1,0 +1,6 @@
+So for today -
+fix jokers
+Get card score
+fix class initialisation
+fix game init (give each player 4 cards, create empty discard pile)
+
