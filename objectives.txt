@@ -1,6 +1,3 @@
 So for today -
-fix jokers
-Get card score
-fix class initialisation
-fix game init (give each player 4 cards, create empty discard pile)
-
+Add a turn system
+each player turn has two stages (pick a card , decide what to do with card)
