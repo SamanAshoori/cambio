@@ -55,7 +55,7 @@ class Cambio:
 
         return score
 
-    
+
     def turn_deck_to_name(self,player = 1):
         deck = []
         if player == 1:
