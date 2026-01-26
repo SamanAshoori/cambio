@@ -3,6 +3,12 @@ import random
 from datetime import datetime
 
 class Cambio:
+    RED_KING_DIAMOND = 38
+    RED_KING_HEART = 51
+    JOKER_1 = 52
+    JOKER_2 = 53
+    DECK_SIZE = 54
+
     def __init__(self):
         self.deck = [i for i in range(54)]
         #Cambio has 52 cards + 2 jokers (ignore for now)
@@ -15,6 +21,9 @@ class Cambio:
         self.player_two = [self.deck.pop(),self.deck.pop(),self.deck.pop(),self.deck.pop()]
         self.player_two_in_hand = -2
         self.discard = []
+        self.turn_count = 0
+        self.game_over = False
+        self.current_player_turn = 1
     
     def get_game_details(self):
         return (self.player_one, self.player_two)
@@ -37,16 +46,16 @@ class Cambio:
         #turn the int values into a card
         cards = ["A","2","3","4","5","6","7","8","9","10","J","Q","K","JK"][card%13]
         #A = 1, JK = joker
+        #// MEANS DIVIDE AND FLOOR (FLOOR REMOVES DECIMALS)
         suits = 'SCDH'[card//13]
-        # // divides and remove
-        #Index 26+ is a red which means 51 = Red King  and 38 = Red King
         return cards + suits
     
     def get_card_score(self,card):
         if card >= 52:
             return 0
         #In cambio red kings are minus one so add check here
-        if card == 51 | card == 38:
+        if card == self.RED_KING_DIAMOND or card == self.RED_KING_HEART:
+            #red kings are worth -1
             return -1
         score = card % 13
         score = score + 1
@@ -54,6 +63,40 @@ class Cambio:
             return 10
 
         return score
+    
+    def player_put_card_in_hand(self, hand_index, player = 1):
+        if player == 1:
+            self.player_one[hand_index] = self.player_one_in_hand
+            self.discard.append(self.player_one_in_hand)
+            self.player_one_in_hand = -2
+        else:
+            self.player_two[hand_index] = self.player_two_in_hand
+            self.discard.append(self.player_two_in_hand)
+            self.player_two_in_hand = -2
+    
+    def discard_card_from_hand(self, player = 1):
+        if player == 1:
+            self.discard.append(self.player_one_in_hand)
+            self.player_one_in_hand = -2
+        else:
+            self.discard.append(self.player_two_in_hand)
+            self.player_two_in_hand = -2
+
+    def step(self):
+        self.turn_count += 1
+        if self.current_player_turn == 1:
+            #if its player one
+            self.player_get_card_from_pile()
+            #player one now has a card in the hand and needs to decide what to do with it
+            for card in self.player_one:
+                if self.get_card_score(card) > self.get_card_score(self.player_one_in_hand):
+                    #if the card in the deck is worth more than the card in hand swap them
+                    self.player_put_card_in_hand(self.player_one.index(card))
+                    self.discard_card_from_hand()
+                    break
+            self.current_player_turn = 2
+        else:
+            self.current_player_turn = 1
 
 
     def turn_deck_to_name(self,player = 1):
@@ -81,6 +124,16 @@ class Cambio:
         
         return score
     
+    def player_get_card_from_pile(self,player = 1):
+        card = self.deck.pop()
+        if player == 1:
+            self.player_one_in_hand = card
+        else:
+            self.player_two_in_hand = card
+    
+    
+
+
     def get_winner(self):
         p1_score = self.turn_deck_to_score()
         p2_score = self.turn_deck_to_score(2)

@@ -1,4 +1,0 @@
-So for today -
-Add a turn system
-each player turn has two stages (pick a card , decide what to do with card) - actions are draw card
-then decide to either swap or discard
