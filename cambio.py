@@ -64,7 +64,7 @@ class Cambio:
 
         return score
     
-    def player_put_card_in_hand(self, hand_index, player = 1):
+    def player_put_card_in_hand_into_deck(self, hand_index, player = 1):
         if player == 1:
             self.player_one[hand_index] = self.player_one_in_hand
             self.discard.append(self.player_one_in_hand)
@@ -75,12 +75,21 @@ class Cambio:
             self.player_two_in_hand = -2
     
     def discard_card_from_hand(self, player = 1):
+        if self.player_one_in_hand == -2 and self.player_two_in_hand == -2:
+            raise Exception("No card in hand to discard")
         if player == 1:
             self.discard.append(self.player_one_in_hand)
             self.player_one_in_hand = -2
         else:
             self.discard.append(self.player_two_in_hand)
             self.player_two_in_hand = -2
+    
+    def player_get_card_from_pile(self,player = 1):
+        card = self.deck.pop()
+        if player == 1:
+            self.player_one_in_hand = card
+        else:
+            self.player_two_in_hand = card
 
     def step(self):
         self.turn_count += 1
@@ -91,11 +100,24 @@ class Cambio:
             for card in self.player_one:
                 if self.get_card_score(card) > self.get_card_score(self.player_one_in_hand):
                     #if the card in the deck is worth more than the card in hand swap them
-                    self.player_put_card_in_hand(self.player_one.index(card))
+                    self.player_put_card_in_hand_into_deck(self.player_one.index(card))
+                    break
+                else:
                     self.discard_card_from_hand()
                     break
             self.current_player_turn = 2
         else:
+            #if its player two
+            self.player_get_card_from_pile(2)
+            #player two now has a card in the hand and needs to decide what to do with it
+            for card in self.player_two:
+                if self.get_card_score(card) > self.get_card_score(self.player_two_in_hand):
+                    #if the card in the deck is worth more than the card in hand swap them
+                    self.player_put_card_in_hand_into_deck(self.player_two.index(card),2)
+                    break
+                else:
+                    self.discard_card_from_hand(2)
+                    break
             self.current_player_turn = 1
 
 
@@ -124,16 +146,7 @@ class Cambio:
         
         return score
     
-    def player_get_card_from_pile(self,player = 1):
-        card = self.deck.pop()
-        if player == 1:
-            self.player_one_in_hand = card
-        else:
-            self.player_two_in_hand = card
     
-    
-
-
     def get_winner(self):
         p1_score = self.turn_deck_to_score()
         p2_score = self.turn_deck_to_score(2)
@@ -155,4 +168,15 @@ print(c.turn_deck_to_score())
 print("----- PLAYER 2 SCORE BELOW -----")
 print(c.turn_deck_to_name(2))
 print(c.turn_deck_to_score(2))
+print("----- SIMULATING TURNS -----")
+for i in range(10):
+    c.step()
+    print(f"--- TURN {i+1} ---")
+    print("Deck size:", len(c.get_deck()))
+    print("Discard pile size:", len(c.discard))
+    print("Dicarded cards:", [c.convert_card(card) for card in c.discard])
+    print(f"Cards in hand P1: {c.get_card_score(c.player_one_in_hand)}, P2: {c.get_card_score(c.player_two_in_hand)}")
+    print("P1:",c.turn_deck_to_name(), "SCORE:", c.turn_deck_to_score())
+    print("P2:",c.turn_deck_to_name(2), "SCORE:", c.turn_deck_to_score(2))
+print("----- GAME OVER -----")
 print(c.get_winner())
