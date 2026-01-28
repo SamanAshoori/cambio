@@ -1,0 +1,2 @@
+To do
+Observation = players shouldnt know what they have
