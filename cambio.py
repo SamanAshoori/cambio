@@ -21,7 +21,7 @@ class Cambio:
 
         self.player_two_inventory = [self.deck.pop(),self.deck.pop(),self.deck.pop(),self.deck.pop()]
         self.player_two_in_hand = -2
-        self.discard = []
+        self.discard_pile = []
         self.turn_count = 0
         self.game_over = False
         self.current_player_turn = 1
@@ -39,6 +39,10 @@ class Cambio:
             return self.player_two_inventory
 
     def convert_card(self,card):
+        #check for -2
+        if card == -2:
+            return "No Card"
+        #check for joker
         if card >= 52:
             return "JK"
         #turn the int values into a card
@@ -62,34 +66,48 @@ class Cambio:
 
         return score
     
-    def player_put_card_in_hand_into_deck(self, hand_index, player = 1):
+    def discard(self,player = 1):
         if player == 1:
-            self.player_one_inventory[hand_index] = self.player_one_in_hand
-            self.discard.append(self.player_one_in_hand)
+            self.discard_pile.append(self.player_one_in_hand)
             self.player_one_in_hand = -2
         else:
-            self.player_two_inventory[hand_index] = self.player_two_in_hand
-            self.discard.append(self.player_two_in_hand)
+            self.discard_pile.append(self.player_two_in_hand)
             self.player_two_in_hand = -2
+    
+    def player_put_card_in_hand_into_deck(self, hand_index, player = 1):
+        if player == 1:
+            old_card = self.player_one_inventory[hand_index]
+            self.player_one_inventory[hand_index] = self.player_one_in_hand
+            self.player_one_in_hand = old_card
+            self.discard()
+        else:
+            old_card = self.player_two_inventory[hand_index]
+            self.player_two_inventory[hand_index] = self.player_two_in_hand
+            self.player_two_in_hand = old_card
+            self.discard(2)
     
     def discard_card_from_hand(self, player = 1):
         if self.player_one_in_hand == -2 and self.player_two_in_hand == -2:
             raise Exception("No card in hand to discard")
         if player == 1:
-            self.discard.append(self.player_one_in_hand)
-            self.player_one_in_hand = -2
+            self.discard()
         else:
-            self.discard.append(self.player_two_in_hand)
-            self.player_two_in_hand = -2
-    
+            self.discard(2)
+
     def player_get_card_from_pile(self,player = 1):
+        #quick check to see if player has a card in hand already
+        if (player == 1 and self.player_one_in_hand != -2) or (player == 2 and self.player_two_in_hand != -2):
+            raise Exception(f"Player {player} already has a card in hand")
         card = self.deck.pop()
         if player == 1:
+            print(f"Player 1 drew {self.convert_card(card)}")
             self.player_one_in_hand = card
         else:
+            print(f"Player 2 drew {self.convert_card(card)}")
             self.player_two_in_hand = card
 
     def step(self):
+        #simulate one turn of the game
         self.turn_count += 1
         if self.current_player_turn == 1:
             #if its player one
@@ -101,8 +119,10 @@ class Cambio:
                     self.player_put_card_in_hand_into_deck(self.player_one_inventory.index(card))
                     break
                 else:
-                    self.discard_card_from_hand()
-                    break
+                    pass
+
+            if self.player_one_in_hand != -2:
+                self.discard()
             self.current_player_turn = 2
         else:
             #if its player two
@@ -114,8 +134,10 @@ class Cambio:
                     self.player_put_card_in_hand_into_deck(self.player_two_inventory.index(card),2)
                     break
                 else:
-                    self.discard_card_from_hand(2)
-                    break
+                    pass
+
+            if self.player_two_in_hand != -2:
+                self.discard(2)
             self.current_player_turn = 1
 
 
@@ -157,4 +179,4 @@ class Cambio:
             return "--- P1 Wins ---"
         
     def get_discard_pile(self):
-        return self.discard
+        return self.discard_pile
