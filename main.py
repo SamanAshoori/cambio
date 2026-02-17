@@ -18,7 +18,7 @@ for i in range(20):
     print("Deck size:", len(c.get_deck()))
     print("Discard pile size:", len(c.discard_pile))
     print("Discarded cards:", [c.convert_card(card) for card in c.discard_pile])
-    print(f"Cards in hand P1: {c.convert_card(c.player_one_in_hand)}, P2: {c.convert_card(c.player_two_in_hand)}")
+    print(f"Cards in hand P1: {c.convert_card(c.player_one.get_in_hand())}, P2: {c.convert_card(c.player_two.get_in_hand())}")
     print("P1:",c.turn_deck_to_name(), "SCORE:", c.turn_deck_to_score())
     print("P2:",c.turn_deck_to_name(2), "SCORE:", c.turn_deck_to_score(2))
 print("----- GAME OVER -----")
