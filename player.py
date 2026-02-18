@@ -1,6 +1,7 @@
 class Player:
     def __init__(self,inventory,name):
         self.player_inventory = inventory
+        self.player_knowledge = [False for _ in inventory]
         self.player_in_hand = -2
         self.player_name = name
         self.player_score = 0
