@@ -3,7 +3,7 @@ import sys
 from cambio import Cambio
 
 # Constants
-WIDTH, HEIGHT = 1280, 720
+WIDTH, HEIGHT = 720, 1280
 CARD_WIDTH, CARD_HEIGHT = 90, 120
 SPACE = 10 
 

@@ -10,6 +10,7 @@ class Player:
         self.player_name = name
         self.player_score = 0
         self.risk_tolerance = 6
+        self.count_of_known = sum(self.player_knowledge)
 
     def get_inventory(self):
         return self.player_inventory
@@ -57,17 +58,21 @@ class Player:
 
     def decide_swap_index(self):
         #checks score of card in hand
+
+
+        #go through all unknown cards before checking known
         hand_score = self.get_card_score(self.player_in_hand)
-        #for loop
+        if self.count_of_known < 4:
+            for i, card in enumerate(self.player_inventory):
+                if not self.player_knowledge[i]:
+                    if hand_score < self.risk_tolerance:
+                        return i
+
+        #for loop for when we know all cards
         for i, card in enumerate(self.player_inventory):
             if self.player_knowledge[i]:
                 # If we know the card, compare actual scores
                 #if the card is more than the hand_card swap it at the current index[i]
                 if self.get_card_score(card) > hand_score:
-                    return i
-            else:
-                # If we don't know the card, use risk tolerance
-                #so if its less than 6 swap and use the risk_toleracne
-                if hand_score < self.risk_tolerance:
                     return i
         return -1
