@@ -1,13 +1,21 @@
 class Player:
+    # Define constants for special cards
+    RED_KING_DIAMOND = 38
+    RED_KING_HEART = 51
+
     def __init__(self,inventory,name):
         self.player_inventory = inventory
         self.player_knowledge = [False for _ in inventory]
         self.player_in_hand = -2
         self.player_name = name
         self.player_score = 0
+        self.risk_tolerance = 6
 
     def get_inventory(self):
         return self.player_inventory
+    
+    def set_inventory(self, inventory):
+        self.player_inventory = inventory
     
     def get_in_hand(self):
         return self.player_in_hand
@@ -19,9 +27,47 @@ class Player:
         temp = self.player_inventory[index]
         self.player_inventory[index] = self.player_in_hand
         self.player_in_hand = temp
+        self.player_knowledge[index] = True
 
     def get_name(self):
         return self.player_name
     
     def get_score(self):
         return self.player_score
+    
+    def get_card_score(self,card):
+        if card >= 52:
+            return 0
+        #In cambio red kings are minus one so add check here
+        if card == self.RED_KING_DIAMOND or card == self.RED_KING_HEART:
+            #red kings are worth -1
+            return -1
+        score = card % 13
+        score = score + 1
+        if score >= 10:
+            return 10
+
+        return score
+    
+    def get_risk_tolerance(self):
+        return self.risk_tolerance
+    
+    def set_risk_tolerance(self, risk_tolerance):
+        self.risk_tolerance = risk_tolerance
+
+    def decide_swap_index(self):
+        #checks score of card in hand
+        hand_score = self.get_card_score(self.player_in_hand)
+        #for loop
+        for i, card in enumerate(self.player_inventory):
+            if self.player_knowledge[i]:
+                # If we know the card, compare actual scores
+                #if the card is more than the hand_card swap it at the current index[i]
+                if self.get_card_score(card) > hand_score:
+                    return i
+            else:
+                # If we don't know the card, use risk tolerance
+                #so if its less than 6 swap and use the risk_toleracne
+                if hand_score < self.risk_tolerance:
+                    return i
+        return -1

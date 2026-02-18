@@ -95,40 +95,23 @@ class Cambio:
     def step(self):
         #simulate one turn of the game
         self.turn_count += 1
-        if self.current_player_turn == 1:
-            #if its player one
-            self.player_get_card_from_pile()
-            #player one now has a card in the hand and needs to decide what to do with it
-            inventory = self.player_one.get_inventory()
-            in_hand = self.player_one.get_in_hand()
-            for i, card in enumerate(inventory):
-                if self.get_card_score(card) > self.get_card_score(in_hand):
-                    #if the card in the deck is worth more than the card in hand swap them
-                    self.player_put_card_in_hand_into_deck(i, 1)
-                    break
-                else:
-                    pass
+        
+        current_player = self.player_one if self.current_player_turn == 1 else self.player_two
+        player_id = self.current_player_turn
 
-            if self.player_one.get_in_hand() != -2:
-                self.discard()
-            self.current_player_turn = 2
-        else:
-            #if its player two
-            self.player_get_card_from_pile(2)
-            #player two now has a card in the hand and needs to decide what to do with it
-            inventory = self.player_two.get_inventory()
-            in_hand = self.player_two.get_in_hand()
-            for i, card in enumerate(inventory):
-                if self.get_card_score(card) > self.get_card_score(in_hand):
-                    #if the card in the deck is worth more than the card in hand swap them
-                    self.player_put_card_in_hand_into_deck(i, 2)
-                    break
-                else:
-                    pass
+        # Player draws a card
+        self.player_get_card_from_pile(player_id)
 
-            if self.player_two.get_in_hand() != -2:
-                self.discard(2)
-            self.current_player_turn = 1
+        # Player decides what to do (Swap or Stick)
+        swap_index = current_player.decide_swap_index()
+        if swap_index != -1:
+            self.player_put_card_in_hand_into_deck(swap_index, player_id)
+
+        # Discard if they still have a card in hand
+        if current_player.get_in_hand() != -2:
+            self.discard(player_id)
+
+        self.current_player_turn = 2 if self.current_player_turn == 1 else 1
 
 
     def turn_deck_to_name(self,player = 1):
