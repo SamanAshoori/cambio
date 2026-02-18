@@ -1,5 +1,9 @@
 import pygame
 import sys
+import os
+
+# Add the parent directory to sys.path to allow importing from the sibling directory
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from cambio import Cambio
 
 # Constants
