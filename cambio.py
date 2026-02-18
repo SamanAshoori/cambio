@@ -93,25 +93,30 @@ class Cambio:
         current_player.set_in_hand(card)
 
     def step(self):
-        #simulate one turn of the game
-        self.turn_count += 1
-        
-        current_player = self.player_one if self.current_player_turn == 1 else self.player_two
-        player_id = self.current_player_turn
 
-        # Player draws a card
-        self.player_get_card_from_pile(player_id)
+        if len(self.deck) == 0:  
+            self.game_over = True
+            return self.get_winner()
+        else:
+            #simulate one turn of the game
+            self.turn_count += 1
+            
+            current_player = self.player_one if self.current_player_turn == 1 else self.player_two
+            player_id = self.current_player_turn
 
-        # Player decides what to do (Swap or Stick)
-        swap_index = current_player.decide_swap_index()
-        if swap_index != -1:
-            self.player_put_card_in_hand_into_deck(swap_index, player_id)
+            # Player draws a card
+            self.player_get_card_from_pile(player_id)
 
-        # Discard if they still have a card in hand
-        if current_player.get_in_hand() != -2:
-            self.discard(player_id)
+            # Player decides what to do (Swap or Stick)
+            swap_index = current_player.decide_swap_index()
+            if swap_index != -1:
+                self.player_put_card_in_hand_into_deck(swap_index, player_id)
 
-        self.current_player_turn = 2 if self.current_player_turn == 1 else 1
+            # Discard if they still have a card in hand
+            if current_player.get_in_hand() != -2:
+                self.discard(player_id)
+
+            self.current_player_turn = 2 if self.current_player_turn == 1 else 1
 
 
     def turn_deck_to_name(self,player = 1):
