@@ -1,3 +1,0 @@
-/home/salmon/dev/cambio/cplusplus_env/build/CMakeFiles/cambio_cpp.dir
-/home/salmon/dev/cambio/cplusplus_env/build/CMakeFiles/edit_cache.dir
-/home/salmon/dev/cambio/cplusplus_env/build/CMakeFiles/rebuild_cache.dir
