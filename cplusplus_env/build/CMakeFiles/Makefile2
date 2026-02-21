@@ -63,11 +63,11 @@ CMAKE_BINARY_DIR = /home/salmon/dev/cambio/cplusplus_env/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/player_cpp.dir/all
+all: CMakeFiles/cambio_cpp.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
-codegen: CMakeFiles/player_cpp.dir/codegen
+codegen: CMakeFiles/cambio_cpp.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -75,40 +75,40 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/player_cpp.dir/clean
+clean: CMakeFiles/cambio_cpp.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/player_cpp.dir
+# Target rules for target CMakeFiles/cambio_cpp.dir
 
 # All Build rule for target.
-CMakeFiles/player_cpp.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/player_cpp.dir/build.make CMakeFiles/player_cpp.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/player_cpp.dir/build.make CMakeFiles/player_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/salmon/dev/cambio/cplusplus_env/build/CMakeFiles --progress-num=1,2,3 "Built target player_cpp"
-.PHONY : CMakeFiles/player_cpp.dir/all
+CMakeFiles/cambio_cpp.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cambio_cpp.dir/build.make CMakeFiles/cambio_cpp.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cambio_cpp.dir/build.make CMakeFiles/cambio_cpp.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/salmon/dev/cambio/cplusplus_env/build/CMakeFiles --progress-num=1,2,3,4 "Built target cambio_cpp"
+.PHONY : CMakeFiles/cambio_cpp.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/player_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/salmon/dev/cambio/cplusplus_env/build/CMakeFiles 3
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/player_cpp.dir/all
+CMakeFiles/cambio_cpp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/salmon/dev/cambio/cplusplus_env/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/cambio_cpp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/salmon/dev/cambio/cplusplus_env/build/CMakeFiles 0
-.PHONY : CMakeFiles/player_cpp.dir/rule
+.PHONY : CMakeFiles/cambio_cpp.dir/rule
 
 # Convenience name for target.
-player_cpp: CMakeFiles/player_cpp.dir/rule
-.PHONY : player_cpp
+cambio_cpp: CMakeFiles/cambio_cpp.dir/rule
+.PHONY : cambio_cpp
 
 # codegen rule for target.
-CMakeFiles/player_cpp.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/player_cpp.dir/build.make CMakeFiles/player_cpp.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/salmon/dev/cambio/cplusplus_env/build/CMakeFiles --progress-num=1,2,3 "Finished codegen for target player_cpp"
-.PHONY : CMakeFiles/player_cpp.dir/codegen
+CMakeFiles/cambio_cpp.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cambio_cpp.dir/build.make CMakeFiles/cambio_cpp.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/salmon/dev/cambio/cplusplus_env/build/CMakeFiles --progress-num=1,2,3,4 "Finished codegen for target cambio_cpp"
+.PHONY : CMakeFiles/cambio_cpp.dir/codegen
 
 # clean rule for target.
-CMakeFiles/player_cpp.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/player_cpp.dir/build.make CMakeFiles/player_cpp.dir/clean
-.PHONY : CMakeFiles/player_cpp.dir/clean
+CMakeFiles/cambio_cpp.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cambio_cpp.dir/build.make CMakeFiles/cambio_cpp.dir/clean
+.PHONY : CMakeFiles/cambio_cpp.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

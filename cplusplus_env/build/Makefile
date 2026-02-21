@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named player_cpp
+# Target rules for targets named cambio_cpp
 
 # Build rule for target.
-player_cpp: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 player_cpp
-.PHONY : player_cpp
+cambio_cpp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cambio_cpp
+.PHONY : cambio_cpp
 
 # fast build rule for target.
-player_cpp/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/player_cpp.dir/build.make CMakeFiles/player_cpp.dir/build
-.PHONY : player_cpp/fast
+cambio_cpp/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cambio_cpp.dir/build.make CMakeFiles/cambio_cpp.dir/build
+.PHONY : cambio_cpp/fast
 
 bindings.o: bindings.cpp.o
 .PHONY : bindings.o
 
 # target to build an object file
 bindings.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/player_cpp.dir/build.make CMakeFiles/player_cpp.dir/bindings.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cambio_cpp.dir/build.make CMakeFiles/cambio_cpp.dir/bindings.cpp.o
 .PHONY : bindings.cpp.o
 
 bindings.i: bindings.cpp.i
@@ -142,7 +142,7 @@ bindings.i: bindings.cpp.i
 
 # target to preprocess a source file
 bindings.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/player_cpp.dir/build.make CMakeFiles/player_cpp.dir/bindings.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cambio_cpp.dir/build.make CMakeFiles/cambio_cpp.dir/bindings.cpp.i
 .PHONY : bindings.cpp.i
 
 bindings.s: bindings.cpp.s
@@ -150,15 +150,39 @@ bindings.s: bindings.cpp.s
 
 # target to generate assembly for a file
 bindings.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/player_cpp.dir/build.make CMakeFiles/player_cpp.dir/bindings.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cambio_cpp.dir/build.make CMakeFiles/cambio_cpp.dir/bindings.cpp.s
 .PHONY : bindings.cpp.s
+
+cambio.o: cambio.cpp.o
+.PHONY : cambio.o
+
+# target to build an object file
+cambio.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cambio_cpp.dir/build.make CMakeFiles/cambio_cpp.dir/cambio.cpp.o
+.PHONY : cambio.cpp.o
+
+cambio.i: cambio.cpp.i
+.PHONY : cambio.i
+
+# target to preprocess a source file
+cambio.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cambio_cpp.dir/build.make CMakeFiles/cambio_cpp.dir/cambio.cpp.i
+.PHONY : cambio.cpp.i
+
+cambio.s: cambio.cpp.s
+.PHONY : cambio.s
+
+# target to generate assembly for a file
+cambio.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cambio_cpp.dir/build.make CMakeFiles/cambio_cpp.dir/cambio.cpp.s
+.PHONY : cambio.cpp.s
 
 player.o: player.cpp.o
 .PHONY : player.o
 
 # target to build an object file
 player.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/player_cpp.dir/build.make CMakeFiles/player_cpp.dir/player.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cambio_cpp.dir/build.make CMakeFiles/cambio_cpp.dir/player.cpp.o
 .PHONY : player.cpp.o
 
 player.i: player.cpp.i
@@ -166,7 +190,7 @@ player.i: player.cpp.i
 
 # target to preprocess a source file
 player.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/player_cpp.dir/build.make CMakeFiles/player_cpp.dir/player.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cambio_cpp.dir/build.make CMakeFiles/cambio_cpp.dir/player.cpp.i
 .PHONY : player.cpp.i
 
 player.s: player.cpp.s
@@ -174,7 +198,7 @@ player.s: player.cpp.s
 
 # target to generate assembly for a file
 player.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/player_cpp.dir/build.make CMakeFiles/player_cpp.dir/player.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cambio_cpp.dir/build.make CMakeFiles/cambio_cpp.dir/player.cpp.s
 .PHONY : player.cpp.s
 
 # Help Target
@@ -185,10 +209,13 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... player_cpp"
+	@echo "... cambio_cpp"
 	@echo "... bindings.o"
 	@echo "... bindings.i"
 	@echo "... bindings.s"
+	@echo "... cambio.o"
+	@echo "... cambio.i"
+	@echo "... cambio.s"
 	@echo "... player.o"
 	@echo "... player.i"
 	@echo "... player.s"

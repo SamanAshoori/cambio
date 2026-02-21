@@ -1,4 +1,4 @@
-CMakeFiles/player_cpp.dir/bindings.cpp.o: \
+CMakeFiles/cambio_cpp.dir/bindings.cpp.o: \
  /home/salmon/dev/cambio/cplusplus_env/bindings.cpp \
  /usr/include/stdc-predef.h /usr/include/pybind11/pybind11.h \
  /usr/include/pybind11/detail/class.h /usr/include/pybind11/attr.h \

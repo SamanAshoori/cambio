@@ -86,10 +86,24 @@ CMakeFiles/player_cpp.dir/player.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/player_cpp.dir/player.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/salmon/dev/cambio/cplusplus_env/player.cpp -o CMakeFiles/player_cpp.dir/player.cpp.s
 
+CMakeFiles/player_cpp.dir/cambio.cpp.o: CMakeFiles/player_cpp.dir/flags.make
+CMakeFiles/player_cpp.dir/cambio.cpp.o: /home/salmon/dev/cambio/cplusplus_env/cambio.cpp
+CMakeFiles/player_cpp.dir/cambio.cpp.o: CMakeFiles/player_cpp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/salmon/dev/cambio/cplusplus_env/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/player_cpp.dir/cambio.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/player_cpp.dir/cambio.cpp.o -MF CMakeFiles/player_cpp.dir/cambio.cpp.o.d -o CMakeFiles/player_cpp.dir/cambio.cpp.o -c /home/salmon/dev/cambio/cplusplus_env/cambio.cpp
+
+CMakeFiles/player_cpp.dir/cambio.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/player_cpp.dir/cambio.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/salmon/dev/cambio/cplusplus_env/cambio.cpp > CMakeFiles/player_cpp.dir/cambio.cpp.i
+
+CMakeFiles/player_cpp.dir/cambio.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/player_cpp.dir/cambio.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/salmon/dev/cambio/cplusplus_env/cambio.cpp -o CMakeFiles/player_cpp.dir/cambio.cpp.s
+
 CMakeFiles/player_cpp.dir/bindings.cpp.o: CMakeFiles/player_cpp.dir/flags.make
 CMakeFiles/player_cpp.dir/bindings.cpp.o: /home/salmon/dev/cambio/cplusplus_env/bindings.cpp
 CMakeFiles/player_cpp.dir/bindings.cpp.o: CMakeFiles/player_cpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/salmon/dev/cambio/cplusplus_env/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/player_cpp.dir/bindings.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/salmon/dev/cambio/cplusplus_env/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/player_cpp.dir/bindings.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/player_cpp.dir/bindings.cpp.o -MF CMakeFiles/player_cpp.dir/bindings.cpp.o.d -o CMakeFiles/player_cpp.dir/bindings.cpp.o -c /home/salmon/dev/cambio/cplusplus_env/bindings.cpp
 
 CMakeFiles/player_cpp.dir/bindings.cpp.i: cmake_force
@@ -103,17 +117,19 @@ CMakeFiles/player_cpp.dir/bindings.cpp.s: cmake_force
 # Object files for target player_cpp
 player_cpp_OBJECTS = \
 "CMakeFiles/player_cpp.dir/player.cpp.o" \
+"CMakeFiles/player_cpp.dir/cambio.cpp.o" \
 "CMakeFiles/player_cpp.dir/bindings.cpp.o"
 
 # External object files for target player_cpp
 player_cpp_EXTERNAL_OBJECTS =
 
 player_cpp.cpython-313-x86_64-linux-gnu.so: CMakeFiles/player_cpp.dir/player.cpp.o
+player_cpp.cpython-313-x86_64-linux-gnu.so: CMakeFiles/player_cpp.dir/cambio.cpp.o
 player_cpp.cpython-313-x86_64-linux-gnu.so: CMakeFiles/player_cpp.dir/bindings.cpp.o
 player_cpp.cpython-313-x86_64-linux-gnu.so: CMakeFiles/player_cpp.dir/build.make
 player_cpp.cpython-313-x86_64-linux-gnu.so: CMakeFiles/player_cpp.dir/compiler_depend.ts
 player_cpp.cpython-313-x86_64-linux-gnu.so: CMakeFiles/player_cpp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/salmon/dev/cambio/cplusplus_env/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX shared module player_cpp.cpython-313-x86_64-linux-gnu.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/salmon/dev/cambio/cplusplus_env/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX shared module player_cpp.cpython-313-x86_64-linux-gnu.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/player_cpp.dir/link.txt --verbose=$(VERBOSE)
 	/usr/bin/strip /home/salmon/dev/cambio/cplusplus_env/build/player_cpp.cpython-313-x86_64-linux-gnu.so
 

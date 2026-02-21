@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -shared -flto=auto -Wl,--dependency-file=CMakeFiles/cambio_cpp.dir/link.d  -o cambio_cpp.cpython-313-x86_64-linux-gnu.so CMakeFiles/cambio_cpp.dir/player.cpp.o CMakeFiles/cambio_cpp.dir/cambio.cpp.o CMakeFiles/cambio_cpp.dir/bindings.cpp.o

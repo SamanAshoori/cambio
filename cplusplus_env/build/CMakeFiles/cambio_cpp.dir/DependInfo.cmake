@@ -8,10 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/salmon/dev/cambio/cplusplus_env/bindings.cpp" "CMakeFiles/player_cpp.dir/bindings.cpp.o" "gcc" "CMakeFiles/player_cpp.dir/bindings.cpp.o.d"
-  "/home/salmon/dev/cambio/cplusplus_env/cambio.cpp" "CMakeFiles/player_cpp.dir/cambio.cpp.o" "gcc" "CMakeFiles/player_cpp.dir/cambio.cpp.o.d"
-  "/home/salmon/dev/cambio/cplusplus_env/player.cpp" "CMakeFiles/player_cpp.dir/player.cpp.o" "gcc" "CMakeFiles/player_cpp.dir/player.cpp.o.d"
-  "" "player_cpp.cpython-313-x86_64-linux-gnu.so" "gcc" "CMakeFiles/player_cpp.dir/link.d"
+  "/home/salmon/dev/cambio/cplusplus_env/bindings.cpp" "CMakeFiles/cambio_cpp.dir/bindings.cpp.o" "gcc" "CMakeFiles/cambio_cpp.dir/bindings.cpp.o.d"
+  "/home/salmon/dev/cambio/cplusplus_env/cambio.cpp" "CMakeFiles/cambio_cpp.dir/cambio.cpp.o" "gcc" "CMakeFiles/cambio_cpp.dir/cambio.cpp.o.d"
+  "/home/salmon/dev/cambio/cplusplus_env/player.cpp" "CMakeFiles/cambio_cpp.dir/player.cpp.o" "gcc" "CMakeFiles/cambio_cpp.dir/player.cpp.o.d"
+  "" "cambio_cpp.cpython-313-x86_64-linux-gnu.so" "gcc" "CMakeFiles/cambio_cpp.dir/link.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

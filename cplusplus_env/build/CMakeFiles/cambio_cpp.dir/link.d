@@ -1,9 +1,9 @@
-player_cpp.cpython-313-x86_64-linux-gnu.so: \
+cambio_cpp.cpython-313-x86_64-linux-gnu.so: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/crti.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o \
-  CMakeFiles/player_cpp.dir/player.cpp.o \
-  CMakeFiles/player_cpp.dir/cambio.cpp.o \
-  CMakeFiles/player_cpp.dir/bindings.cpp.o \
+  CMakeFiles/cambio_cpp.dir/player.cpp.o \
+  CMakeFiles/cambio_cpp.dir/cambio.cpp.o \
+  CMakeFiles/cambio_cpp.dir/bindings.cpp.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libstdc++.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so \
@@ -33,11 +33,11 @@ player_cpp.cpython-313-x86_64-linux-gnu.so: \
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o:
 
-CMakeFiles/player_cpp.dir/player.cpp.o:
+CMakeFiles/cambio_cpp.dir/player.cpp.o:
 
-CMakeFiles/player_cpp.dir/cambio.cpp.o:
+CMakeFiles/cambio_cpp.dir/cambio.cpp.o:
 
-CMakeFiles/player_cpp.dir/bindings.cpp.o:
+CMakeFiles/cambio_cpp.dir/bindings.cpp.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libstdc++.so:
 
