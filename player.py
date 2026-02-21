@@ -3,7 +3,7 @@ class Player:
     RED_KING_DIAMOND = 38
     RED_KING_HEART = 51
 
-    def __init__(self,inventory,name):
+    def __init__(self,inventory,name,opponent_size=4):
         self.player_inventory = inventory
         self.player_knowledge = [False for _ in inventory]
         self.player_in_hand = -2
@@ -11,6 +11,9 @@ class Player:
         self.player_score = 0
         self.risk_tolerance = 6
         self.count_of_known = sum(self.player_knowledge)
+        self.opponent_size = opponent_size
+        self.opponent_knowledge = [False for _ in range(opponent_size)]  # what we know about opponent
+        self.opponent_inventory_known = [-1 for _ in range(opponent_size)]
 
     def get_inventory(self):
         return self.player_inventory
