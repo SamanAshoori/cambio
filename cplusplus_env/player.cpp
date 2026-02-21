@@ -21,10 +21,10 @@ const std::vector<int>& Player::get_inventory(){
   return player_inventory;
 }
 
-void Player::set_inventory(const std::vector<int>& inventory){
-  player_inventory = inventory;
+void Player::set_inventory(const std::vector<int>& inventory) {
+    player_inventory = inventory;
+    player_knowledge.assign(inventory.size(), false);
 }
-
 int Player::get_in_hand(){
   return player_in_hand;
 }

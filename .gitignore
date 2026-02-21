@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+venv/
+
+# C++ build artifacts
+*.so
+*.o
+*.a
+
+# CMake
+cplusplus_env/build/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
