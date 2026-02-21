@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/salmon/dev/cambio/cplusplus_env/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

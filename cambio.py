@@ -1,6 +1,6 @@
 #Cambio env
 import random
-from player import Player
+from player_cpp import Player
 
 
 class Cambio:
