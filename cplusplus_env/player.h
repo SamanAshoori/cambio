@@ -11,7 +11,7 @@ class Player{
     Player(const std::vector<int>& inventory, const std::string& name);
 
     std::vector<int>& get_inventory();
-    void set_inventory<const std::vector<int>& inventory>;
+    void set_inventory(const std::vector<int>& inventory);
     int get_in_hand();
     void set_in_hand(int card);
     void swap_hand_with_inventory(int index);
