@@ -3,6 +3,16 @@ class Player:
     RED_KING_DIAMOND = 38
     RED_KING_HEART = 51
 
+    POWER_CARDS = {
+    6: "PEEK_SELF", #7
+    7: "PEEK_SELF", #8
+    8: "PEEK_OPPONENT", #9
+    9: "PEEK_OPPONENT", #10
+    10: "BLIND_SWAP", #Jack
+    11: "SINGLE_PEEK_SWAP", #Queen
+    12: "DOUBLE_PEEK_SWAP" #King
+    }
+
     def __init__(self,inventory,name,opponent_size=4):
         self.player_inventory = inventory
         self.player_knowledge = [False for _ in inventory]
@@ -79,3 +89,9 @@ class Player:
                 if self.get_card_score(card) > hand_score:
                     return i
         return -1
+    
+    def get_card_rank(self,card):
+        return ["A","2","3","4","5","6","7","8","9","10","J","Q","K","JK"][card%13]
+    
+    def check_if_card_is_power(self,card):
+        pass
