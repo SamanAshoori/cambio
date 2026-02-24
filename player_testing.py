@@ -9,3 +9,4 @@ random.shuffle(deck)
 p = Player([deck.pop() for _ in range(4)], "Player 1")
 
 print(p.get_card_rank(10))
+print(p.check_if_card_is_power(10))

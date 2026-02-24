@@ -4,13 +4,13 @@ class Player:
     RED_KING_HEART = 51
 
     POWER_CARDS = {
-    6: "PEEK_SELF", #7
-    7: "PEEK_SELF", #8
-    8: "PEEK_OPPONENT", #9
-    9: "PEEK_OPPONENT", #10
-    10: "BLIND_SWAP", #Jack
-    11: "SINGLE_PEEK_SWAP", #Queen
-    12: "DOUBLE_PEEK_SWAP" #King
+    "7": "PEEK_SELF", #7
+    "8": "PEEK_SELF", #8
+    "9": "PEEK_OPPONENT", #9
+    "10": "PEEK_OPPONENT", #10
+    "J": "BLIND_SWAP", #Jack
+    "Q": "SINGLE_PEEK_SWAP", #Queen
+    "K": "DOUBLE_PEEK_SWAP" #King
     }
 
     def __init__(self,inventory,name,opponent_size=4):
