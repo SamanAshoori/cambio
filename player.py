@@ -94,4 +94,9 @@ class Player:
         return ["A","2","3","4","5","6","7","8","9","10","J","Q","K","JK"][card%13]
     
     def check_if_card_is_power(self,card):
-        pass
+        card_rank = self.get_card_rank(card)
+        if card_rank in self.POWER_CARDS:
+            return True
+        return False
+    
+
