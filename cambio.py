@@ -1,6 +1,6 @@
 #Cambio env
 import random
-from cambio_cpp import Player,Cambio
+from player import Player
 
 
 class Cambio:
@@ -129,6 +129,10 @@ class Cambio:
                 self.discard(player_id)
 
             self.current_player_turn = 2 if self.current_player_turn == 1 else 1
+            
+    def get_card_rank(self,card):
+        #returns a string value for the card rank
+        return ["A","2","3","4","5","6","7","8","9","10","J","Q","K","JK"][card%13]
 
 
     def turn_deck_to_name(self,player = 1):
