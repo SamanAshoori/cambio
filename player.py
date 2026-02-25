@@ -91,6 +91,7 @@ class Player:
         return -1
     
     def get_card_rank(self,card):
+        #returns a string value for the card rank
         return ["A","2","3","4","5","6","7","8","9","10","J","Q","K","JK"][card%13]
     
     def check_if_card_is_power(self,card):
