@@ -1,5 +1,6 @@
 # Python
-__pycache__/
+__pycache__
+*.md
 *.py[cod]
 *.pyo
 venv/
@@ -17,3 +18,4 @@ cplusplus_env/build/
 .idea/
 *.swp
 *.swo
+.venv

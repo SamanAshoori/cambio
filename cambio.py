@@ -11,17 +11,8 @@ class Cambio:
     JOKER_2 = 53
     DECK_SIZE = 54
 
-    #Powercards Dict
-    POWER_CARDS = {
-        6: "PEEK_SELF", #7
-        7: "PEEK_SELF", #8
-        8: "PEEK_OPPONENT", #9
-        9: "PEEK_OPPONENT", #10
-        10: "BLIND_SWAP", #Jack
-        11: "SINGLE_PEEK_SWAP", #Queen
-        12: "DOUBLE_PEEK_SWAP" #King
-        }
-        
+    POWER_CARDS = Player.POWER_CARDS
+
 
     def __init__(self):
         self.deck = [i for i in range(54)]
