@@ -104,4 +104,8 @@ class Player:
         card_rank = self.get_card_rank(card)
         return self.POWER_CARDS.get(card_rank) == "PEEK_SELF"
     
+    def check_if_peek_opponent(self,card):
+        card_rank = self.get_card_rank(card)
+        return self.POWER_CARDS.get(card_rank == "PEEK_OPPONENT")
+    
 
