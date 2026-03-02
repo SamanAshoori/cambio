@@ -23,7 +23,7 @@ class Player:
         self.count_of_known = sum(self.player_knowledge)
         self.opponent_size = opponent_size
         self.opponent_knowledge = [False for _ in range(opponent_size)]  # what we know about opponent
-        self.opponent_inventory_known = [-1 for _ in range(opponent_size)]
+        self.opponent_inventory = [-1 for _ in range(opponent_size)]
 
     def get_inventory(self):
         return self.player_inventory
@@ -141,7 +141,18 @@ class Player:
         self.opponent_inventory_known[index] = opponent_inventory[index]
         return index
         
-        
-        
+    def get_highest_known_card_index(self):
+        known_indices = [i for i, known in enumerate(self.player_knowledge) if known]
+        if not known_indices:
+            return -1
+        return max(known_indices, key=lambda i: self.get_card_score(self.player_inventory[i]))
     
-
+    def get_highest_opponent_known_card_index(self):
+        known_indices = [i for i, known in enumerate(self.opponent_knowledge) if known]
+        if not known_indices:
+            return -1
+        return max(known_indices, key=lambda i: self.get_card_score(self.opponent_inventory[i]))
+    
+    def decide_blind_swap(self, card):
+    
+        pass
