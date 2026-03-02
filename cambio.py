@@ -151,7 +151,7 @@ class Cambio:
         if p1_score == p2_score:
             return "--- DRAW ---"
         elif p1_score > p2_score:
-            return "--- P1 Loses ---"
+            return "--- P2 Wins ---"
         else:
             return "--- P1 Wins ---"
         

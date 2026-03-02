@@ -42,6 +42,7 @@ class Player:
         self.player_inventory[index] = self.player_in_hand
         self.player_in_hand = temp
         self.player_knowledge[index] = True
+        self.count_of_known = sum(self.player_knowledge)
 
     def get_name(self):
         return self.player_name
@@ -70,24 +71,20 @@ class Player:
         self.risk_tolerance = risk_tolerance
 
     def decide_swap_index(self):
-        #checks score of card in hand
-
-
-        #go through all unknown cards before checking known
         hand_score = self.get_card_score(self.player_in_hand)
-        if self.count_of_known < 4:
-            for i, card in enumerate(self.player_inventory):
-                if not self.player_knowledge[i]:
-                    if hand_score < self.risk_tolerance:
-                        return i
 
-        #for loop for when we know all cards
+        # First: swap a known card that's worse than what we're holding
         for i, card in enumerate(self.player_inventory):
             if self.player_knowledge[i]:
-                # If we know the card, compare actual scores
-                #if the card is more than the hand_card swap it at the current index[i]
                 if self.get_card_score(card) > hand_score:
                     return i
+
+        # Second: blindly swap into an unknown slot if hand score is below risk tolerance
+        for i in range(len(self.player_inventory)):
+            if not self.player_knowledge[i]:
+                if hand_score < self.risk_tolerance:
+                    return i
+
         return -1
     
     def get_card_rank(self,card):
@@ -106,6 +103,45 @@ class Player:
     
     def check_if_peek_opponent(self,card):
         card_rank = self.get_card_rank(card)
-        return self.POWER_CARDS.get(card_rank == "PEEK_OPPONENT")
+        return self.POWER_CARDS.get(card_rank) == "PEEK_OPPONENT"
+
+    def check_if_blind_swap(self,card):
+        card_rank = self.get_card_rank(card)
+        return self.POWER_CARDS.get(card_rank) == "BLIND_SWAP"
+
+    def check_if_single_peek_swap(self,card):
+        card_rank = self.get_card_rank(card)
+        return self.POWER_CARDS.get(card_rank) == "SINGLE_PEEK_SWAP"
+
+    def check_if_double_peek_swap(self,card):
+        card_rank = self.get_card_rank(card)
+        return self.POWER_CARDS.get(card_rank) == "DOUBLE_PEEK_SWAP"
+    
+    def peek_self(self, index=None):
+        if index is None:
+            for i, known in enumerate(self.player_knowledge):
+                if not known:
+                    index = i
+                    break
+        if index is None:
+            return -1
+        self.player_knowledge[index] = True
+        self.count_of_known = sum(self.player_knowledge)
+        return index
+
+    def peek_opponent(self, opponent_inventory, index=None):
+        if index is None:
+            for i, known in enumerate(self.opponent_knowledge):
+                if not known:
+                    index = i
+                    break
+        if index is None:
+            return -1
+        self.opponent_knowledge[index] = True
+        self.opponent_inventory_known[index] = opponent_inventory[index]
+        return index
+        
+        
+        
     
 
