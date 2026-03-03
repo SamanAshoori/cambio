@@ -27,6 +27,11 @@ class Cambio:
         self.turn_count = 0
         self.game_over = False
         self.current_player_turn = 1
+        
+    def starting_peek(self):
+        self.player_one.peek_self()
+        self.player_two.peek_self()
+        
     
     def get_game_details(self):
         return (self.player_one.get_inventory(), self.player_two.get_inventory())
