@@ -154,5 +154,17 @@ class Player:
         return max(known_indices, key=lambda i: self.get_card_score(self.opponent_inventory[i]))
     
     def decide_blind_swap(self, card):
-    
-        pass
+        own_index = self.get_highest_known_card_index()
+
+        if own_index == -1:
+            if self.risk_tolerance < self.get_card_score(card):
+                return (-1, -1)
+            own_index = 0
+
+        known_opp = [i for i, known in enumerate(self.opponent_knowledge) if known]
+        if known_opp:
+            opponent_index = min(known_opp, key=lambda i: self.get_card_score(self.opponent_inventory[i]))
+        else:
+            opponent_index = 0
+
+        return (own_index, opponent_index)
