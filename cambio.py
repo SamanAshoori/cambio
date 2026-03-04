@@ -177,18 +177,10 @@ class Cambio:
             pass
         
         
-    def blind_swap(self,player = 1):
-        player = self.player_one if player == 1 else self.player_two
-        
-        #Now while the swap may be blind - worth checking players highest card and opponents
-        player_highest_known_card_index = player.get_highest_known_card_index()
-        opponent_highest_known_card_index = player.get_highest_opponent_known_card_index()
-        
-        
-        #If we dont know self and opponent card, pick a random
-        if player_highest_known_card_index == -1 and opponent_highest_known_card_index == -1:
-            return False
-            
+    def swap_player_cards(self, p1_index, p2_index):
+        inv1 = self.player_one.get_inventory()
+        inv2 = self.player_two.get_inventory()
+        inv1[p1_index], inv2[p2_index] = inv2[p2_index], inv1[p1_index]
 
         
         
