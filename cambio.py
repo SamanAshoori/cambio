@@ -116,6 +116,10 @@ class Cambio:
 
             # Player draws a card
             self.player_get_card_from_pile(player_id)
+            
+            #Before deicidng what to do worth checking if the card is power
+            self.decide_use_power(current_player.get_in_hand(),player_id)
+
 
             # Player decides what to do (Swap or Stick // NEW now needs to check if to use power)
             swap_index = current_player.decide_swap_index()
@@ -168,14 +172,14 @@ class Cambio:
     def decide_use_power(self,card,player = 1):
         #If the card in the player hand is not a power card then return False
         player = self.player_one if player == 1 else self.player_two
-        if not player.check_if_power(card):
+        power = player.get_power(card)
+        if not power:
             return False
-        #If the card is a power card then we need to know which one
-        if player.check_if_peek_self(card):
+        if power == "PEEK_SELF":
             player.peek_self()
-        if player.check_if_peek_opponent(card):
+        elif power == "PEEK_OPPONENT":
             player.peek_opponent(self.player_two.get_inventory())
-        if player.check_if_blind_swap(card):
+        elif power == "BLIND_SWAP":
             self.swap_player_cards(*player.decide_blind_swap())
         
         

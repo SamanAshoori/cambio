@@ -115,31 +115,9 @@ class Player:
         self.risk_tolerance = self.risk_tolerance_calc()
 
     
-    def check_if_card_is_power(self,card):
-        card_rank = self.get_card_rank(card)
-        if card_rank in self.POWER_CARDS:
-            return True
-        return False
-    
-    def check_if_peek_self(self,card):
-        card_rank = self.get_card_rank(card)
-        return self.POWER_CARDS.get(card_rank) == "PEEK_SELF"
-    
-    def check_if_peek_opponent(self,card):
-        card_rank = self.get_card_rank(card)
-        return self.POWER_CARDS.get(card_rank) == "PEEK_OPPONENT"
-
-    def check_if_blind_swap(self,card):
-        card_rank = self.get_card_rank(card)
-        return self.POWER_CARDS.get(card_rank) == "BLIND_SWAP"
-
-    def check_if_single_peek_swap(self,card):
-        card_rank = self.get_card_rank(card)
-        return self.POWER_CARDS.get(card_rank) == "SINGLE_PEEK_SWAP"
-
-    def check_if_double_peek_swap(self,card):
-        card_rank = self.get_card_rank(card)
-        return self.POWER_CARDS.get(card_rank) == "DOUBLE_PEEK_SWAP"
+    def get_power(self, card):
+        return self.POWER_CARDS.get(self.get_card_rank(card))
+    #returns none if not in the power cards list
     
     def peek_self(self, index=None):
         if index is None:
