@@ -96,6 +96,8 @@ class Cambio:
         #quick check to see if player has a card in hand already
         if current_player.get_in_hand() != -2:
             raise Exception(f"Player {player} already has a card in hand")
+        if len(self.deck) == 0:
+            raise Exception("Deck is empty")
         card = self.deck.pop()
         print(f"Player {player} drew {self.convert_card(card)}")
         current_player.set_in_hand(card)
@@ -174,10 +176,12 @@ class Cambio:
         if player.check_if_peek_opponent(card):
             player.peek_opponent(self.player_two.get_inventory())
         if player.check_if_blind_swap(card):
-            pass
+            self.swap_player_cards(*player.decide_blind_swap())
         
         
     def swap_player_cards(self, p1_index, p2_index):
+        if p1_index == -1 or p2_index == -1:
+            return
         inv1 = self.player_one.get_inventory()
         inv2 = self.player_two.get_inventory()
         inv1[p1_index], inv2[p2_index] = inv2[p2_index], inv1[p1_index]

@@ -91,6 +91,30 @@ class Player:
         #returns a string value for the card rank
         return ["A","2","3","4","5","6","7","8","9","10","J","Q","K","JK"][card%13]
     
+    def get_average_known_card_score(self):
+        total = 0
+        for i,known in enumerate(self.player_knowledge):
+            if known:
+                total += self.get_card_score(self.player_inventory[i])
+        if self.count_of_known == 0:
+            return 0
+        return total / self.count_of_known
+    
+    def risk_tolerance_calc(self):
+        new_risk_tolerance = 0
+        unknown_score = (len(self.player_inventory) - self.count_of_known) * 6
+        total = 0
+        for i, known in enumerate(self.player_knowledge):
+            if known:
+                total += self.get_card_score(self.player_inventory[i])
+        new_risk_tolerance += ((unknown_score + total) / len(self.player_inventory))
+        return new_risk_tolerance
+        
+    
+    def set_risk_tolerance(self):
+        self.risk_tolerance = self.risk_tolerance_calc()
+
+    
     def check_if_card_is_power(self,card):
         card_rank = self.get_card_rank(card)
         if card_rank in self.POWER_CARDS:
@@ -153,18 +177,30 @@ class Player:
             return -1
         return max(known_indices, key=lambda i: self.get_card_score(self.opponent_inventory[i]))
     
-    def decide_blind_swap(self, card):
+    def decide_blind_swap(self):
         own_index = self.get_highest_known_card_index()
 
+        # No known own cards — can't make an informed decision
         if own_index == -1:
-            if self.risk_tolerance < self.get_card_score(card):
-                return (-1, -1)
-            own_index = 0
+            return (-1, -1)
+
+        own_score = self.get_card_score(self.player_inventory[own_index])
+
+        # Our worst known card is below risk tolerance — not worth offloading
+        if own_score < self.risk_tolerance:
+            return (-1, -1)
 
         known_opp = [i for i, known in enumerate(self.opponent_knowledge) if known]
         if known_opp:
+            # Pick opponent's lowest scoring known card (best card for us to receive)
             opponent_index = min(known_opp, key=lambda i: self.get_card_score(self.opponent_inventory[i]))
+            opp_score = self.get_card_score(self.opponent_inventory[opponent_index])
+            # Only swap if we actually gain (their card scores lower than our worst)
+            if opp_score >= own_score:
+                return (-1, -1)
         else:
+            # Truly blind — pick opponent slot 0
             opponent_index = 0
 
         return (own_index, opponent_index)
+    
