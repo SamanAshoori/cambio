@@ -140,7 +140,7 @@ class Player:
         if index is None:
             return -1
         self.opponent_knowledge[index] = True
-        self.opponent_inventory_known[index] = opponent_inventory[index]
+        self.opponent_inventory[index] = opponent_inventory[index]
         return index
         
     def get_highest_known_card_index(self):

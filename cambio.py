@@ -99,7 +99,6 @@ class Cambio:
         if len(self.deck) == 0:
             raise Exception("Deck is empty")
         card = self.deck.pop()
-        print(f"Player {player} drew {self.convert_card(card)}")
         current_player.set_in_hand(card)
 
     def step(self):
@@ -110,18 +109,25 @@ class Cambio:
         else:
             #simulate one turn of the game
             self.turn_count += 1
-            
+            self.last_drawn = None
+            self.last_power = None
+
             current_player = self.player_one if self.current_player_turn == 1 else self.player_two
             player_id = self.current_player_turn
 
             # Player draws a card
             self.player_get_card_from_pile(player_id)
-            
-            #Before deicidng what to do worth checking if the card is power
-            self.decide_use_power(current_player.get_in_hand(),player_id)
+            self.last_drawn = current_player.get_in_hand()
 
+            # If card is a power card, use it and end the turn
+            power = self.use_power(current_player.get_in_hand(), player_id)
+            if power:
+                self.last_power = power
+                self.discard(player_id)
+                self.current_player_turn = 2 if self.current_player_turn == 1 else 1
+                return
 
-            # Player decides what to do (Swap or Stick // NEW now needs to check if to use power)
+            # Player decides what to do (swap or discard)
             swap_index = current_player.decide_swap_index()
             if swap_index != -1:
                 self.player_put_card_in_hand_into_deck(swap_index, player_id)
@@ -169,7 +175,7 @@ class Cambio:
     def get_discard_pile(self):
         return self.discard_pile
     
-    def decide_use_power(self,card,player = 1):
+    def use_power(self,card,player = 1):
         #If the card in the player hand is not a power card then return False
         player = self.player_one if player == 1 else self.player_two
         power = player.get_power(card)
@@ -181,8 +187,9 @@ class Cambio:
             player.peek_opponent(self.player_two.get_inventory())
         elif power == "BLIND_SWAP":
             self.swap_player_cards(*player.decide_blind_swap())
-        
-        
+
+        return power
+
     def swap_player_cards(self, p1_index, p2_index):
         if p1_index == -1 or p2_index == -1:
             return
