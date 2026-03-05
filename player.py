@@ -13,6 +13,7 @@ class Player:
     "K": "DOUBLE_PEEK_SWAP" #King
     }
 
+    #just need to comment something for git cuh
     def __init__(self,inventory,name,opponent_size=4):
         self.player_inventory = inventory
         self.player_knowledge = [False for _ in inventory]
