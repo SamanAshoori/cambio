@@ -36,4 +36,4 @@ print(mse_loss(predictions, targets))  # what do you expect?
 predictions = np.array([2.0, 0.0])
 targets     = np.array([0.0, 2.0])
 print(mse_loss(predictions, targets))  # and this one?
-    
+#back to the futrue
