@@ -173,6 +173,7 @@ class Cambio:
             return "--- P1 Wins ---"
         
     def get_discard_pile(self):
+        #I havent found a use for this yet but im surre there is one
         return self.discard_pile
     
     def use_power(self,card,player = 1):
