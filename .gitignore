@@ -1,6 +1,5 @@
 # Python
 __pycache__
-*.md
 *.py[cod]
 *.pyo
 venv/
