@@ -27,6 +27,7 @@ class Cambio:
         self.turn_count = 0
         self.game_over = False
         self.current_player_turn = 1
+        self.cambio_called_by = None
         
     def starting_peek(self):
         for i in range (2):
@@ -121,6 +122,16 @@ class Cambio:
             current_player = self.player_one if self.current_player_turn == 1 else self.player_two
             player_id = self.current_player_turn
 
+            # If cambio was called last turn, this is the opponent's final turn —
+            # let them play it out, then end the game after
+            is_final_turn = self.cambio_called_by is not None and self.current_player_turn != self.cambio_called_by
+
+            # Check if player wants to call cambio before drawing (only if not already called)
+            if self.cambio_called_by is None and current_player.decide_call_cambio():
+                self.cambio_called_by = player_id
+                self.current_player_turn = 2 if player_id == 1 else 1
+                return
+
             # Player draws a card
             self.player_get_card_from_pile(player_id)
             self.last_drawn = current_player.get_in_hand()
@@ -131,6 +142,9 @@ class Cambio:
             if power_name and current_player.decide_use_power(power_name):
                 self.last_power = self.use_power(self.last_drawn, player_id)
                 self.discard(player_id)
+                if is_final_turn:
+                    self.game_over = True
+                    return self.get_winner()
                 self.current_player_turn = 2 if self.current_player_turn == 1 else 1
                 return
 
@@ -143,6 +157,10 @@ class Cambio:
             # Discard if they still have a card in hand
             if current_player.get_in_hand() != -2:
                 self.discard(player_id)
+
+            if is_final_turn:
+                self.game_over = True
+                return self.get_winner()
 
             self.current_player_turn = 2 if self.current_player_turn == 1 else 1
             

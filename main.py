@@ -83,10 +83,7 @@ def simulate():
     print_state(game)
     print()
 
-    while True:
-        if len(game.get_deck()) == 0:
-            break
-
+    while not game.game_over and len(game.get_deck()) > 0:
         turn_num  = game.turn_count + 1
         player_id = game.current_player_turn
 
@@ -94,7 +91,17 @@ def simulate():
         print(f"{BOLD}  Turn {turn_num}  |  Player {player_id}{RESET}")
         print(f"{'─' * 52}")
 
+        prev_called_by = game.cambio_called_by
         game.step()
+
+        # Player called cambio this turn (step returned early, no draw)
+        if game.cambio_called_by is not None and prev_called_by is None:
+            print(f"  {BOLD}{YELLOW}*** Player {game.cambio_called_by} calls CAMBIO! ***{RESET}")
+            print(f"  {DIM}Opponent gets one final turn.{RESET}")
+            print()
+            print_state(game)
+            print()
+            continue
 
         drawn           = getattr(game, 'last_drawn', None)
         power           = getattr(game, 'last_power', None)
@@ -112,6 +119,10 @@ def simulate():
                 print(f"  Drew : {BOLD}{card_name}{RESET}  →  {DIM}{col}{icon} (skipped){RESET}")
             else:
                 print(f"  Drew : {BOLD}{card_name}{RESET}")
+
+        if game.game_over and game.cambio_called_by is not None:
+            opp = 2 if game.cambio_called_by == 1 else 1
+            print(f"  {DIM}(Final turn for Player {opp}){RESET}")
 
         print()
         print_state(game)

@@ -20,6 +20,7 @@ class Player:
         self.player_in_hand = -2
         self.player_name = name
         self.player_score = 0
+        self.player_known_score = 0
         self.risk_tolerance = 6
         self.count_of_known = sum(self.player_knowledge)
         self.opponent_size = opponent_size
@@ -37,6 +38,14 @@ class Player:
     
     def set_in_hand(self, card):
         self.player_in_hand = card
+        
+    def get_player_known_score(self):
+        val = 0
+        for i, known in enumerate(self.player_knowledge):
+            if known:
+                val += self.get_card_score(self.player_inventory[i])
+        return val
+    
 
     def swap_hand_with_inventory(self, index):
         temp = self.player_inventory[index]
@@ -192,4 +201,14 @@ class Player:
             opponent_index = 0
 
         return (own_index, opponent_index)
+    
+    def call_cambio(self):
+        #once the player believes they have a good score they should call cambio
+        return 1
+    
+    def decide_call_cambio(self):
+        if not all(self.player_knowledge):
+            return False
+        return self.get_player_known_score() <= 15
+    
     
