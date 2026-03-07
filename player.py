@@ -67,23 +67,21 @@ class Player:
     
     def get_risk_tolerance(self):
         return self.risk_tolerance
-    
-    def set_risk_tolerance(self, risk_tolerance):
-        self.risk_tolerance = risk_tolerance
 
     def decide_swap_index(self):
         hand_score = self.get_card_score(self.player_in_hand)
-
-        # First: swap a known card that's worse than what we're holding
-        for i, card in enumerate(self.player_inventory):
-            if self.player_knowledge[i]:
-                if self.get_card_score(card) > hand_score:
-                    return i
-
-        # Second: blindly swap into an unknown slot if hand score is below risk tolerance
+        
+        #First we swap unknown cards if the card is below risk toleracne
         for i in range(len(self.player_inventory)):
             if not self.player_knowledge[i]:
                 if hand_score < self.risk_tolerance:
+                    return i
+        
+
+        # then if we dont like the risk score - we can check to see if any known cards are trash
+        for i, card in enumerate(self.player_inventory):
+            if self.player_knowledge[i]:
+                if self.get_card_score(card) > hand_score:
                     return i
 
         return -1
@@ -130,6 +128,7 @@ class Player:
             return -1
         self.player_knowledge[index] = True
         self.count_of_known = sum(self.player_knowledge)
+        self.set_risk_tolerance()
         return index
 
     def peek_opponent(self, opponent_inventory, index=None):
@@ -142,6 +141,7 @@ class Player:
             return -1
         self.opponent_knowledge[index] = True
         self.opponent_inventory[index] = opponent_inventory[index]
+        self.set_risk_tolerance()
         return index
         
     def get_highest_known_card_index(self):

@@ -29,8 +29,9 @@ class Cambio:
         self.current_player_turn = 1
         
     def starting_peek(self):
-        self.player_one.peek_self()
-        self.player_two.peek_self()
+        for i in range (2):
+            self.player_one.peek_self()
+            self.player_two.peek_self()
         
     
     def get_game_details(self):
@@ -81,8 +82,12 @@ class Cambio:
             current_player.set_in_hand(-2)
     
     def player_put_card_in_hand_into_deck(self, hand_index, player = 1):
+        opp = self.player_two if player == 1 else self.player_one
         current_player = self.player_one if player == 1 else self.player_two
         current_player.swap_hand_with_inventory(hand_index)
+        #Opponent's knowledge of this slot is now wrong
+        opp.opponent_knowledge[hand_index] = False
+        opp.opponent_inventory[hand_index] = -1
         self.discard(player)
     
     def discard_card_from_hand(self, player = 1):
@@ -131,6 +136,7 @@ class Cambio:
             swap_index = current_player.decide_swap_index()
             if swap_index != -1:
                 self.player_put_card_in_hand_into_deck(swap_index, player_id)
+                current_player.set_risk_tolerance()
 
             # Discard if they still have a card in hand
             if current_player.get_in_hand() != -2:
@@ -173,11 +179,12 @@ class Cambio:
             return "--- P1 Wins ---"
         
     def get_discard_pile(self):
-        #I havent found a use for this yet but im surre there is one
+        #I havent found a use for this yet but im sure there is one
         return self.discard_pile
     
     def use_power(self,card,player = 1):
         #If the card in the player hand is not a power card then return False
+        opp = self.player_two if player == 1 else self.player_one
         player = self.player_one if player == 1 else self.player_two
         power = player.get_power(card)
         if not power:
@@ -185,9 +192,31 @@ class Cambio:
         if power == "PEEK_SELF":
             player.peek_self()
         elif power == "PEEK_OPPONENT":
-            player.peek_opponent(self.player_two.get_inventory())
+            player.peek_opponent(opp.get_inventory())
         elif power == "BLIND_SWAP":
-            self.swap_player_cards(*player.decide_blind_swap())
+            own_idx, opp_idx = player.decide_blind_swap()
+            if player == self.player_one:
+                self.swap_player_cards(own_idx, opp_idx)
+            else:
+                self.swap_player_cards(opp_idx, own_idx)
+        elif power == "SINGLE_PEEK_SWAP":
+            #Instead of making awhole new swap and decide swap , cuh is just gonna cheat and peek and then swap
+            player.peek_opponent(opp.get_inventory())
+            own_idx, opp_idx = player.decide_blind_swap()
+            if player == self.player_one:
+                self.swap_player_cards(own_idx, opp_idx)
+            else:
+                self.swap_player_cards(opp_idx, own_idx)
+        elif power == "DOUBLE_PEEK_SWAP":
+            #cheating again
+            player.peek_opponent(opp.get_inventory())
+            player.peek_self()
+            own_idx, opp_idx = player.decide_blind_swap()
+            if player == self.player_one:
+                self.swap_player_cards(own_idx, opp_idx)
+            else:
+                self.swap_player_cards(opp_idx, own_idx)
+
 
         return power
 
@@ -197,6 +226,19 @@ class Cambio:
         inv1 = self.player_one.get_inventory()
         inv2 = self.player_two.get_inventory()
         inv1[p1_index], inv2[p2_index] = inv2[p2_index], inv1[p1_index]
+        #mutate element of the list in place (swap locations)
+        self.player_one.opponent_knowledge[p2_index] = False
+        self.player_two.opponent_knowledge[p1_index] = False
+        self.player_one.opponent_inventory[p2_index] = -1
+        self.player_two.opponent_inventory[p1_index] = -1
+        # both players lose self-knowledge of the slot that just changed under them
+        self.player_one.player_knowledge[p1_index] = False
+        self.player_two.player_knowledge[p2_index] = False
+        self.player_one.count_of_known = sum(self.player_one.player_knowledge)
+        self.player_two.count_of_known = sum(self.player_two.player_knowledge)
+        self.player_one.set_risk_tolerance()
+        self.player_two.set_risk_tolerance()
+
 
         
         
