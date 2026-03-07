@@ -96,8 +96,9 @@ def simulate():
 
         game.step()
 
-        drawn = getattr(game, 'last_drawn', None)
-        power = getattr(game, 'last_power', None)
+        drawn           = getattr(game, 'last_drawn', None)
+        power           = getattr(game, 'last_power', None)
+        power_available = getattr(game, 'last_power_available', None)
 
         if drawn is not None:
             card_name = game.convert_card(drawn)
@@ -105,6 +106,10 @@ def simulate():
                 col  = POWER_COLOUR.get(power, YELLOW)
                 icon = POWER_ICON.get(power, power)
                 print(f"  Drew : {BOLD}{card_name}{RESET}  →  {col}{BOLD}{icon}{RESET}")
+            elif power_available:
+                col  = POWER_COLOUR.get(power_available, YELLOW)
+                icon = POWER_ICON.get(power_available, power_available)
+                print(f"  Drew : {BOLD}{card_name}{RESET}  →  {DIM}{col}{icon} (skipped){RESET}")
             else:
                 print(f"  Drew : {BOLD}{card_name}{RESET}")
 

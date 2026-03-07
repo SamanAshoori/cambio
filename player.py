@@ -117,6 +117,16 @@ class Player:
     def get_power(self, card):
         return self.POWER_CARDS.get(self.get_card_rank(card))
     #returns none if not in the power cards list
+
+    def decide_use_power(self, power):
+        if power == "PEEK_SELF":
+            return not all(self.player_knowledge)
+        if power == "PEEK_OPPONENT":
+            return not all(self.opponent_knowledge)
+        if power == "BLIND_SWAP":
+            return self.decide_blind_swap() != (-1, -1)
+        # SINGLE_PEEK_SWAP and DOUBLE_PEEK_SWAP: always use — the peek is part of the power
+        return True
     
     def peek_self(self, index=None):
         if index is None:

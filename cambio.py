@@ -116,6 +116,7 @@ class Cambio:
             self.turn_count += 1
             self.last_drawn = None
             self.last_power = None
+            self.last_power_available = None
 
             current_player = self.player_one if self.current_player_turn == 1 else self.player_two
             player_id = self.current_player_turn
@@ -124,10 +125,11 @@ class Cambio:
             self.player_get_card_from_pile(player_id)
             self.last_drawn = current_player.get_in_hand()
 
-            # If card is a power card, use it and end the turn
-            power = self.use_power(current_player.get_in_hand(), player_id)
-            if power:
-                self.last_power = power
+            # If card is a power card, decide whether to use it
+            power_name = current_player.get_power(self.last_drawn)
+            self.last_power_available = power_name
+            if power_name and current_player.decide_use_power(power_name):
+                self.last_power = self.use_power(self.last_drawn, player_id)
                 self.discard(player_id)
                 self.current_player_turn = 2 if self.current_player_turn == 1 else 1
                 return
@@ -223,21 +225,41 @@ class Cambio:
     def swap_player_cards(self, p1_index, p2_index):
         if p1_index == -1 or p2_index == -1:
             return
+        self.change_knowledge_post_swap(p1_index, p2_index)
         inv1 = self.player_one.get_inventory()
         inv2 = self.player_two.get_inventory()
         inv1[p1_index], inv2[p2_index] = inv2[p2_index], inv1[p1_index]
-        #mutate element of the list in place (swap locations)
-        self.player_one.opponent_knowledge[p2_index] = False
-        self.player_two.opponent_knowledge[p1_index] = False
-        self.player_one.opponent_inventory[p2_index] = -1
-        self.player_two.opponent_inventory[p1_index] = -1
-        # both players lose self-knowledge of the slot that just changed under them
-        self.player_one.player_knowledge[p1_index] = False
-        self.player_two.player_knowledge[p2_index] = False
-        self.player_one.count_of_known = sum(self.player_one.player_knowledge)
-        self.player_two.count_of_known = sum(self.player_two.player_knowledge)
-        self.player_one.set_risk_tolerance()
-        self.player_two.set_risk_tolerance()
+
+    def change_knowledge_post_swap(self, p1_index, p2_index):
+        p1 = self.player_one
+        p2 = self.player_two
+
+        # Capture what each player knew before the swap happens
+        p1_knew_own = p1.player_knowledge[p1_index]
+        p2_knew_own = p2.player_knowledge[p2_index]
+        p1_knew_opp = p1.opponent_knowledge[p2_index]
+        p2_knew_opp = p2.opponent_knowledge[p1_index]
+        old_p1_card = p1.player_inventory[p1_index]
+        old_p2_card = p2.player_inventory[p2_index]
+
+        # After swap, p1's slot p1_index holds old_p2_card — known only if p1 knew p2's card there
+        p1.player_knowledge[p1_index] = p1_knew_opp
+        p1.count_of_known = sum(p1.player_knowledge)
+
+        # After swap, p2's slot p2_index holds old_p1_card — known only if p2 knew p1's card there
+        p2.player_knowledge[p2_index] = p2_knew_opp
+        p2.count_of_known = sum(p2.player_knowledge)
+
+        # After swap, p2's slot p2_index holds old_p1_card — p1 knows it if they knew their own card
+        p1.opponent_knowledge[p2_index] = p1_knew_own
+        p1.opponent_inventory[p2_index] = old_p1_card if p1_knew_own else -1
+
+        # After swap, p1's slot p1_index holds old_p2_card — p2 knows it if they knew their own card
+        p2.opponent_knowledge[p1_index] = p2_knew_own
+        p2.opponent_inventory[p1_index] = old_p2_card if p2_knew_own else -1
+
+        p1.set_risk_tolerance()
+        p2.set_risk_tolerance()
 
 
         
