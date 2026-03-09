@@ -15,10 +15,15 @@ class Layer:
         self.biases = np.random.randn(n_neurons,)
         
     def forward(self,inputs):
-        return np.dot(self.weights,inputs) + self.biases
+        return relu(np.dot(self.weights,inputs) + self.biases)
     
+def relu(x):
+    return np.maximum(0,x)
+
+
 def mse_loss(predictions,targets):
     return np.mean((predictions - targets)**2)
+
 
     
 if __name__ == "__main__":
@@ -36,3 +41,6 @@ print(mse_loss(predictions, targets))  # what do you expect?
 predictions = np.array([2.0, 0.0])
 targets     = np.array([0.0, 2.0])
 print(mse_loss(predictions, targets))  # and this one?
+print(relu(np.array([-2.0, -0.5, 0.0, 1.0, 3.0])))
+
+
