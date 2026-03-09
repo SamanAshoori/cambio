@@ -239,6 +239,13 @@ class Cambio:
 
 
         return power
+    
+    def snap_check(self,player = 1):
+        #so in cambio you can call snap at any time (there are many variations but I will do it so you can only snap on discarded cards that werent swapped)
+        current_player = self.player_one if player == 1 else self.player_two
+        top_of_discard = self.discard_pile[-1]
+        
+
 
     def swap_player_cards(self, p1_index, p2_index):
         if p1_index == -1 or p2_index == -1:
