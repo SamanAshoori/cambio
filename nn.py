@@ -36,11 +36,11 @@ if __name__ == "__main__":
     
 predictions = np.array([1.0, 2.0, 3.0])
 targets     = np.array([1.0, 2.0, 3.0])
-print(mse_loss(predictions, targets))  # what do you expect?
+print(mse_loss(predictions, targets))
 
 predictions = np.array([2.0, 0.0])
 targets     = np.array([0.0, 2.0])
-print(mse_loss(predictions, targets))  # and this one?
+print(mse_loss(predictions, targets))
 print(relu(np.array([-2.0, -0.5, 0.0, 1.0, 3.0])))
 
 
