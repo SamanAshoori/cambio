@@ -185,6 +185,20 @@ class Cambio:
         # draw a card
         self.player_get_card_from_pile(player)
 
+        # auto-use power if card has one
+        card = self.player_one.get_in_hand() if player == 1 else self.player_two.get_in_hand()
+        power = (self.player_one if player == 1 else self.player_two).get_power(card)
+        if power:
+            self.use_power(card, player)
+            self.discard(player)
+            if is_final_turn:
+                self.game_over = True
+                return
+            self.current_player_turn = 2 if player == 1 else 1
+            self.step()
+            self.current_player_turn = player
+            return
+
         if action in (0, 1, 2, 3):  # swap with slot
             self.player_put_card_in_hand_into_deck(action, player)
         elif action == 4:  # discard

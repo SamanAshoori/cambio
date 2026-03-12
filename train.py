@@ -2,7 +2,7 @@ from cambio import Cambio
 from agent import Agent
 
 agent = Agent()
-episodes = 5000
+episodes = 2000
 wins = 0
 
 for episode in range(episodes):
@@ -27,3 +27,8 @@ for episode in range(episodes):
 
     if episode % 100 == 0:
         print(f"episode {episode}, epsilon: {agent.epsilon:.3f}, win rate: {wins/(episode+1):.2f}")
+        
+agent.save()
+
+print(f"\nfinal win rate: {wins/episodes:.2f}")
+

@@ -62,6 +62,16 @@ class Agent:
                 target[actions[i]] = r + gamma * np.max(q_next)
 
             self.network.train(states[i], target)
+            
+    def save(self, path="model"):
+        for i, layer in enumerate(self.network.layers):
+            np.save(f"{path}_w{i}.npy", layer.weights)
+            np.save(f"{path}_b{i}.npy", layer.biases)
+
+    def load(self, path="model"):
+        for i, layer in enumerate(self.network.layers):
+            layer.weights = np.load(f"{path}_w{i}.npy")
+            layer.biases = np.load(f"{path}_b{i}.npy")
 
 
 def choose_action(q_values, epsilon=0.1):
