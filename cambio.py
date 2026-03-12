@@ -165,6 +165,40 @@ class Cambio:
 
             self.current_player_turn = 2 if self.current_player_turn == 1 else 1
             
+    def agent_step(self, action, player=1):
+        if self.game_over:
+            return
+
+        self.turn_count += 1
+        is_final_turn = self.cambio_called_by is not None and player != self.cambio_called_by
+
+        if action == 5:  # call cambio
+            if self.cambio_called_by is None:
+                self.cambio_called_by = player
+                self.current_player_turn = 2 if player == 1 else 1
+            return
+
+        if len(self.deck) == 0:
+            self.game_over = True
+            return
+
+        # draw a card
+        self.player_get_card_from_pile(player)
+
+        if action in (0, 1, 2, 3):  # swap with slot
+            self.player_put_card_in_hand_into_deck(action, player)
+        elif action == 4:  # discard
+            self.discard_card_from_hand(player)
+
+        if is_final_turn:
+            self.game_over = True
+            return
+
+        # opponent takes their turn via the heuristic
+        self.current_player_turn = 2 if player == 1 else 1
+        self.step()
+        self.current_player_turn = player
+
     def get_card_rank(self,card):
         #returns a string value for the card rank
         return ["A","2","3","4","5","6","7","8","9","10","J","Q","K","JK"][card%13]
