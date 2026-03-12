@@ -80,9 +80,9 @@ Three opponents to play or train against:
 
 ### Training Results
 
-After 10,000 episodes against the heuristic opponent:
+After 5,000 episodes against the heuristic opponent:
 
-- Q-learning agent win rate: **~22%**
+- Q-learning agent win rate: **~41%**
 - Random baseline win rate: **~17%**
 
 The heuristic opponent plays with the same partial information as a real game (2 cards revealed at start). The gap over random represents genuine learning under uncertainty — though there's plenty of room to improve with more training and a better reward signal.
@@ -156,7 +156,7 @@ Pick your opponent (Random, Heuristic, or Neural Net) from the menu. On your tur
 ```bash
 python train.py
 ```
-Trains for 1,000 episodes by default, prints win rate every 100. Saves weights to `model_w*.npy` on completion. Increase `episodes` in `train.py` to train longer.
+Trains for 5,000 episodes by default, prints win rate every 100. Saves weights to `model_w*.npy` on completion. Increase `episodes` in `train.py` to train longer.
 
 **Run the random baseline:**
 ```bash
