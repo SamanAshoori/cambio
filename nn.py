@@ -7,7 +7,16 @@ class Neuron:
         self.bias = np.random.randn()
     
     def forward(self, inputs):
+        self.inputs = inputs
         return self.weights * inputs + self.bias
+    
+    def backward(self,target,learning_rate = 0.01):
+        output = self.forward(self.inputs)
+        d_weight = 2 * (output - target) * self.inputs
+        d_bias = 2 * (output - target)
+        self.weights -= learning_rate * d_weight
+        self.bias -= learning_rate * d_bias
+    
     
 class Layer:
     def __init__(self,n_neurons,n_inputs):
@@ -27,12 +36,16 @@ def mse_loss(predictions,targets):
 
     
 if __name__ == "__main__":
-    layer1 = Layer(3,2)
-    layer2 = Layer(4,3)
-    x = np.array([0.5, 0.3])
-    out1 = layer1.forward(x)
-    out2 = layer2.forward(out1)
-    print(out2)
+    neuron = Neuron()
+    input = 0.5
+    target = 2.0
+
+    for epoch in range(1000):
+        output = neuron.forward(input)
+        loss = (output - target) ** 2
+        neuron.backward(target)
+        if epoch % 10 == 0:
+            print(f"epoch {epoch}: output={output:.3f}, loss={loss:.3f}")
     
 predictions = np.array([1.0, 2.0, 3.0])
 targets     = np.array([1.0, 2.0, 3.0])
