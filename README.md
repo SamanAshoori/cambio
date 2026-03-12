@@ -1,5 +1,7 @@
 # Cambio AI — Neural Network from Scratch
 
+![Q-Network Architecture](banner.png)
+
 A personal project to understand how neural networks actually work — not by calling `model.fit()`, but by building everything by hand: forward passes, backpropagation, gradient descent, and a full Q-learning loop. The game engine was also written from scratch as the training environment.
 
 > The Pygame front end was entirely AI-assisted — that was intentional. The point of this project was the ML implementation, not the GUI. It's there so you can play the game and see the agents in action.
