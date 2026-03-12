@@ -1,5 +1,6 @@
 #Cambio env
 import random
+import numpy as np
 from player import Player
 
 
@@ -244,8 +245,49 @@ class Cambio:
         #so in cambio you can call snap at any time (there are many variations but I will do it so you can only snap on discarded cards that werent swapped)
         current_player = self.player_one if player == 1 else self.player_two
         top_of_discard = self.discard_pile[-1]
+        #lol rip - i moved onto NN before I even considered snaps rippp
         
+    
+        
+    def get_state_vector(self, player=1):
+        current = self.player_one if player == 1 else self.player_two
 
+        obs = []
+
+        # own cards: score + known flag (4 × 2 = 8)
+        for i in range(len(current.player_inventory)):
+            if current.player_knowledge[i]:
+                obs.append(self.get_card_score(current.player_inventory[i]))
+            else:
+                obs.append(0.0)
+            obs.append(1.0 if current.player_knowledge[i] else 0.0)
+
+        # opponent cards: score + known flag (4 × 2 = 8)
+        for i in range(current.opponent_size):
+            if current.opponent_knowledge[i]:
+                obs.append(self.get_card_score(current.opponent_inventory[i]))
+            else:
+                obs.append(0.0)
+            obs.append(1.0 if current.opponent_knowledge[i] else 0.0)
+
+        # card in hand score (1)
+        in_hand = current.get_in_hand()
+        obs.append(self.get_card_score(in_hand) if in_hand != -2 else 0.0)
+
+        # top of discard score (1)
+        obs.append(self.get_card_score(self.discard_pile[-1]) if self.discard_pile else 0.0)
+
+        # risk tolerance (1)
+        obs.append(current.risk_tolerance)
+
+        return np.array(obs, dtype=np.float32)
+        
+    def get_reward(self, player=1):
+        current_score = self.turn_deck_to_score(player)
+        opponent_score = self.turn_deck_to_score(2 if player == 1 else 1)
+        if self.game_over:
+            return 1.0 if current_score < opponent_score else -1.0
+        return -current_score / 40.0
 
     def swap_player_cards(self, p1_index, p2_index):
         if p1_index == -1 or p2_index == -1:
