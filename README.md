@@ -14,7 +14,7 @@ A personal project to understand how neural networks actually work — not by ca
 
 A full implementation of the Cambio card game from scratch — no game libraries:
 
-- Full deck (52 cards + 2 jokers), shuffling, dealing
+- Full deck (52 cards + 2 jokers), shuffling, dealing and game set up
 - Per-player partial knowledge tracking (you only know the cards you've peeked)
 - All five power cards with correct game logic
 - Dynamic risk tolerance calculated from known card scores
